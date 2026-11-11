@@ -32,5 +32,5 @@ hl.window_rule({
 })
 
 hl.layer_rule({ animation = "slide top", match = { namespace = "swaync-control-center" } })
-hl.layer_rule({ animation = "popin 80%", match = { namespace = "rofi" } })
+hl.layer_rule({ animation = "slide top", match = { namespace = "rofi" } })
 hl.layer_rule({ animation = "slide top", match = { namespace = "swaync-notification-window" } })
