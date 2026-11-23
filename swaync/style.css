@@ -1,11 +1,11 @@
 @import "colors.css";
 
 * {
-    font-family: "Zalando Sans", "Monaspace Krypton Var";
+    font-family: "Zalando Sans", "Monaspace Argon Var";
     font-size: 13px;
     outline: none;
-    border-radius: 15px;
-    -gtk-outline-radius: 15;
+    border-radius: 0px;
+    -gtk-outline-radius: 0;
 }
 
 *:focus,
@@ -54,7 +54,7 @@ list,
 listrow,
 row {
     border-radius: 0;
-    -gtk-outline-radius: 15;
+    -gtk-outline-radius: 0;
 }
 
 scrollbar {
@@ -143,7 +143,7 @@ window#osd {
 
 .widget-label > label {
     color: @on_surface_variant;
-    font-family: "Zalando Sans", "Monaspace Krypton Var";
+    font-family: "Zalando Sans", "Monaspace Argon Var";
     font-size: 13px;
     font-weight: 700;
     letter-spacing: 1.4px;
@@ -159,7 +159,7 @@ window#osd {
 
 .widget-label.display_label > label,
 .widget-label.sound_label > label {
-    font-family: "Zalando Sans", "Monaspace Krypton Var";
+    font-family: "Zalando Sans", "Monaspace Argon Var";
     font-size: 13px;
     font-weight: 700;
     letter-spacing: 1.6px;
@@ -225,7 +225,7 @@ scale slider {
 }
 
 .widget-dnd > label {
-    font-family: "Zalando Sans", "Monaspace Krypton Var";
+    font-family: "Zalando Sans", "Monaspace Argon Var";
     font-weight: 700;
     font-size: 13px;
     letter-spacing: 0.6px;
@@ -351,7 +351,7 @@ scale slider {
 }
 
 .widget-mpris-title {
-    font-family: "Zalando Sans", "Monaspace Krypton Var";
+    font-family: "Zalando Sans", "Monaspace Argon Var";
     font-weight: 700;
     font-size: 13px;
     letter-spacing: 0.2px;
@@ -418,7 +418,7 @@ scale slider {
 }
 
 .notification-summary {
-    font-family: "Zalando Sans", "Monaspace Krypton Var";
+    font-family: "Zalando Sans", "Monaspace Argon Var";
     font-weight: 700;
     font-size: 13px;
     letter-spacing: 0.2px;
@@ -489,7 +489,7 @@ scale slider {
 }
 
 .widget-title > label {
-    font-family: "Zalando Sans", "Monaspace Krypton Var";
+    font-family: "Zalando Sans", "Monaspace Argon Var";
     font-weight: 700;
     font-size: 13px;
     letter-spacing: 0.2px;
@@ -543,7 +543,7 @@ scale slider {
 }
 
 .notification-popup .notification-summary {
-    font-family: "Zalando Sans", "Monaspace Krypton Var";
+    font-family: "Zalando Sans", "Monaspace Argon Var";
     font-weight: 700;
     font-size: 13px;
     letter-spacing: 0.2px;

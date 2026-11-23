@@ -3,6 +3,11 @@ return {
     "folke/snacks.nvim",
     opts = {
       dashboard = {
+        -- snacks deliberately clears the dashboard window's statusline. use a
+        -- plain, valid vim statusline here; expressions can trigger E488.
+        wo = {
+          statusline = "  nvim  -  space for commands",
+        },
         sections = {
           { section = "header", padding = 2 },
           { section = "keys", gap = 1, padding = 1, align = "center" },

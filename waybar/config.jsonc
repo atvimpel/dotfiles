@@ -1,30 +1,30 @@
 [
   {
+    "name": "rightbar",
     "layer": "top",
-    "position": "bottom",
-    "height": 24,
+    "position": "right",
     "margin-top": 0,
-    "margin-bottom": 5,
-    "margin-left": 10,
+    "margin-bottom": 4,
+    "margin-left": 5,
     "margin-right": 10,
     "spacing": 10,
     "fixed-center": false,
+    "mode": "dock",
     "modules-left": [
       "custom/adaptive",
-      "custom/adaptive-extra"
-    ],
-    "modules-center": [
+      "custom/adaptive-extra",
       "custom/clock",
-      "custom/space"
-    ],
-    "modules-right": [
+      "custom/space",
       "custom/updates",
       "hyprland/submap"
     ],
+    "modules-center": [],
+    "modules-right": [],
     "tooltip": true,
     "custom/space": {
       "tooltip": true,
       "format": "{text}",
+      "rotate": 90,
       "exec": "~/.config/hypr/scripts/workspace.sh",
       "escape": false,
       "return-type": "json",
@@ -35,7 +35,8 @@
     },
     "hyprland/submap": {
       "format": "{}",
-      "tooltip": true
+      "tooltip": true,
+      "rotate": 90
     },
     "group/system": {
       "orientation": "vertical",
@@ -49,7 +50,7 @@
     "custom/adaptive": {
       "interval": 0.1,
       "format": "{}",
-      "rotate": 0,
+      "rotate": 90,
       "tooltip": true,
       "exec": "~/.config/waybar/scripts/adaptive.py",
       "return-type": "json",
@@ -62,7 +63,7 @@
     "custom/adaptive-extra": {
       "interval": 0.5,
       "format": "{}",
-      "rotate": 0,
+      "rotate": 90,
       "tooltip": true,
       "exec": "~/.config/waybar/scripts/adaptive.py --extra",
       "return-type": "json",
@@ -75,12 +76,14 @@
       "return-type": "json",
       "markup": true,
       "escape": false,
+      "rotate": 90,
       "on-click": "yad --calendar --title=Calendar --width=320 --height=280 --posx=200 --posy=30 --button=gtk-close:1 --close-on-unfocus"
     },
     "custom/updates": {
       "interval": 300,
       "format": "{}",
       "font": "Monaspace Argon",
+      "rotate": 90,
       "exec": "python3 ~/.config/waybar/scripts/updates.py",
       "return-type": "json",
       "tooltip": true,
@@ -136,11 +139,11 @@
   },
   {
     "layer": "top",
-    "position": "left",
-    "width": 46,
+    "position": "right",
+    "width": 10,
     "margin-top": 0,
     "margin-bottom": 4,
-    "margin-left": 10,
+    "margin-left": 0,
     "margin-right": 0,
     "spacing": 6,
     "fixed-center": false,
@@ -204,7 +207,7 @@
     },
     "wlr/taskbar": {
       "format": "{icon}",
-      "icon-size": 22,
+      "icon-size": 16,
       "icon-theme": "Papirus",
       "tooltip-format": "{title}",
       "on-click": "activate",

@@ -1,20 +1,20 @@
-hi Comment guibg=None guifg=#3f484f
+hi Comment guibg=None guifg=#444651
 
-hi Delimiter guibg=None guifg=#88929a
-hi Operator guibg=None guifg=#88929a
+hi Delimiter guibg=None guifg=#8e909c
+hi Operator guibg=None guifg=#8e909c
 
-hi Todo guibg=None guifg=#b5c5f9
+hi Todo guibg=None guifg=#d2bdf6
 
-hi Identifier guibg=None guifg=#80d0ff
-hi Constant guibg=None guifg=#b2c8e8
-hi Type guibg=None guifg=#b5c5f9
-hi String guibg=None guifg=#c5e7ff
-hi Special guibg=None guifg=#b5c5f9
-hi PreProc guibg=None guifg=#b5c5f9
-hi Function guibg=None guifg=#80d0ff
-hi Statement guibg=None guifg=#b2c8e8
+hi Identifier guibg=None guifg=#b4c5ff
+hi Constant guibg=None guifg=#c5c2ea
+hi Type guibg=None guifg=#d2bdf6
+hi String guibg=None guifg=#dbe1ff
+hi Special guibg=None guifg=#d2bdf6
+hi PreProc guibg=None guifg=#d2bdf6
+hi Function guibg=None guifg=#b4c5ff
+hi Statement guibg=None guifg=#c5c2ea
 
 hi Error guibg=#93000a guifg=#ffdad6
-hi StatusLine guibg=#80d0ff guifg=#00344b
-hi StatusLineNC guibg=#004c6a guifg=#c5e7ff
-hi Selection guibg=#222b32
+hi StatusLine guibg=#b4c5ff guifg=#002a78
+hi StatusLineNC guibg=#003da9 guifg=#dbe1ff
+hi Selection guibg=#272a34

@@ -10,7 +10,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="starship"
+ZSH_THEME="minimal"
 
 
 # Set list of themes to pick from when loading at random
@@ -181,7 +181,7 @@ bindkey '^H' backward-kill-word
 # Press Ctrl + Space to accept the next word of a suggestion
 bindkey '^ ' forward-word
 
-# YouTube Music Playlist Function
+# playlist
 playlist() {
     mpv --no-video --loop-playlist=inf 'https://music.youtube.com/playlist?list=PLceR-IJd9-lJPmrT4QLIx2_BuTFCy3NA-&si=gOJRu1MsB4H1oor1'
 }
@@ -191,15 +191,21 @@ telling-aviv() {
   mpv --no-video --loop-playlist=inf --shuffle 'https://youtube.com/playlist?list=PLBic-1v0hZeaQz5Hh7NFkc72edyYIm0GQ&si=dMHlm2nRoHGafVyS'
 }
 
+# or this either
 told-aviv() {
   mpv --no-video --loop-playlist=inf 'https://youtube.com/playlist?list=PLBic-1v0hZeaQz5Hh7NFkc72edyYIm0GQ&si=dMHlm2nRoHGafVyS'
 }
 
+# java commands
+export ANDROID_HOME=/opt/android-sdk
+export JAVA_HOME=/usr/lib/jvm/java-21-openjdk
+export PATH=$JAVA_HOME/bin:$ANDROID_HOME/platform-tools:$PATH
+
+# shuffled playlist
 playlist-shuffle() {
     mpv --no-video --loop-playlist=inf --shuffle 'https://music.youtube.com/playlist?list=PLceR-IJd9-lJPmrT4QLIx2_BuTFCy3NA-&si=IVgzkRTeF3bURw7i'
 }
 
-eval $(thefuck --alias)
 
 flatline() {
     killall "$@"
@@ -235,19 +241,6 @@ export PATH="$HOME/.local/bin:$PATH"
 
 # opencode
 export PATH=/home/em/.opencode/bin:$PATH
-
-alias ai="openclaw"
-
-
-# Added by Antigravity CLI installer
-export PATH="/home/em/.local/bin:$PATH"
-
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"
-
-# OpenClaw Completion
-[ -f "/home/em/.openclaw/completions/openclaw.zsh" ] && source "/home/em/.openclaw/completions/openclaw.zsh"
-
-clear && fastfetch --logo none
 
 # Toggle Docker data-root between USB and default
 toggle-docker-usb() {

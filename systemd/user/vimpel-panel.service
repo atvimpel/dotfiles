@@ -1,0 +1,12 @@
+[Unit]
+Description=Vimpel side panel (docked, layer shell)
+PartOf=graphical-session.target
+After=graphical-session.target
+
+[Service]
+ExecStart=/home/mari/.local/bin/vimpel-panel.py
+Environment=LD_PRELOAD=/usr/lib/libgtk4-layer-shell.so.0
+Restart=on-failure
+
+[Install]
+WantedBy=graphical-session.target

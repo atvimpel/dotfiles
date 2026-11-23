@@ -15,7 +15,7 @@ cachy + hyprland, themed with matugen
 
 | area | stack |
 |---|---|
-| compositor | hyprland 0.55, hyprbars + dynamic-cursors plugins |
+| compositor | hyprland 0.57, dynamic-cursors plugins |
 | bar | waybar, two layouts |
 | launcher | rofi (omniapps / omniscreenshot) |
 | notifications / OSD | swaync + swayosd |

@@ -12,7 +12,7 @@
       "size_2xs": 10
     },
     "mono": {
-      "family": "Monaspace Krypton Var",
+      "family": "Monaspace Argon Var",
       "size_base": 10,
       "size_sm": 12,
       "size_xs": 11
@@ -45,15 +45,15 @@
   },
 
   "shape": {
-    "corner_radius": 15
+    "corner_radius": 0
   },
 
   "border": {
     "style": "solid",
-    "width_thick": 4,
-    "width_medium": 3,
-    "width_thin": 2,
-    "width_hairline": 1
+    "width_thick": 3,
+    "width_medium": 2,
+    "width_thin": 1,
+    "width_hairline": 0
   },
 
   "spacing": {
@@ -72,7 +72,7 @@
   },
 
   "window": {
-    "padding": 9
+    "padding": 6
   },
 
   "notification": {

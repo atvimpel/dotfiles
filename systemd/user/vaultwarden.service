@@ -1,0 +1,16 @@
+[Unit]
+Description=Vaultwarden password manager (user service)
+After=network.target
+
+[Service]
+Type=simple
+Environment=DATA_FOLDER=/home/mari/vaultwarden/data
+Environment=WEB_VAULT_FOLDER=/home/mari/vaultwarden/web-vault
+Environment=ROCKET_ADDRESS=0.0.0.0
+Environment=ROCKET_PORT=8000
+ExecStart=/usr/bin/vaultwarden
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target

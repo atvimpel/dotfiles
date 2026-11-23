@@ -1,0 +1,16 @@
+[Unit]
+Description=Uptime Kuma monitoring dashboard (localhost:3001)
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/mari/.pcchat/workspaces/mwl3smbz44k9/uptime-kuma/uptime-kuma-src
+Environment=UPTIME_KUMA_DATA_DIR=/home/mari/.pcchat/workspaces/mwl3smbz44k9/uptime-kuma/kuma-data/
+Environment=PORT=3001
+Environment=HOST=0.0.0.0
+ExecStart=/usr/bin/node server/server.js
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target

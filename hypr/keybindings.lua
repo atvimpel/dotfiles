@@ -158,6 +158,7 @@ hl.bind(main_mod .. " + SHIFT + N", hl.dsp.exec_cmd("bash ~/.config/rofi/scripts
 -- --- System ---
 hl.bind(main_mod .. " + L", hl.dsp.exec_cmd("pidof hyprlock || hyprlock")) -- lock (no stacking)
 hl.bind(main_mod .. " + SHIFT + R", hl.dsp.exec_cmd("~/rotate.sh")) -- rotate screen
+hl.bind(main_mod .. " + SHIFT + G", hl.dsp.exec_cmd("~/toggle-res.sh")) -- toggle game resolution (1280x720 <-> desktop)
 hl.bind(main_mod .. " + SHIFT + K", hl.dsp.exec_cmd("killall -SIGUSR1 waybar")) -- toggle waybar
 hl.bind("CONTROL + ALT + Delete", hl.dsp.exec_cmd("pkill rofi || " .. power_menu)) -- power menu
 hl.bind(main_mod .. " + SHIFT + Escape", hl.dsp.exec_cmd("~/.local/bin/panic-kill.sh")) -- panic kill
@@ -210,3 +211,5 @@ hl.bind(main_mod .. " + SHIFT + P", hl.dsp.exec_cmd("hyprpicker -a")) -- colour 
 
 -- --- Gestures ---
 hl.gesture({ fingers = 3, direction = "horizontal", action = "workspace" })
+
+hl.bind(main_mod .. " + V", hl.dsp.exec_cmd("~/.local/bin/vimpel-panel")) -- open Vimpel

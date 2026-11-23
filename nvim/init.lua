@@ -1,4 +1,4 @@
--- Custom Neovim config - LazyVim removed, plugins kept
+-- custom neovim config: a warm, keyboard-first workspace
 
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -20,30 +20,30 @@ vim.opt.rtp:prepend(lazypath)
 -- Basic setup
 vim.opt.termguicolors = true
 vim.opt.list = false
+vim.opt.clipboard = "unnamedplus"
+vim.opt.mouse = "a"
 vim.g.lazyvim_check_order = false
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
+-- make the editor feel intentional rather than stock
+vim.opt.signcolumn = "yes"
+vim.opt.cursorline = true
+vim.opt.scrolloff = 8
+vim.opt.sidescrolloff = 8
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+vim.opt.splitkeep = "screen"
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.updatetime = 250
+vim.opt.timeoutlen = 400
+vim.opt.undofile = true
+vim.opt.confirm = true
 
 -- Line numbers
 vim.opt.number = true
 vim.opt.relativenumber = false
-
--- WASD movement (overrides default)
-vim.keymap.set({ "n", "v" }, "w", "k", { noremap = true, silent = true, desc = "Move Up" })
-vim.keymap.set({ "n", "v" }, "a", "h", { noremap = true, silent = true, desc = "Move Left" })
-vim.keymap.set({ "n", "v" }, "s", "j", { noremap = true, silent = true, desc = "Move Down" })
-vim.keymap.set({ "n", "v" }, "d", "l", { noremap = true, silent = true, desc = "Move Right" })
-
--- Force WASD
-vim.keymap.set({ "n", "v" }, "h", "w", { noremap = true, silent = true, desc = "Next Word" })
-vim.keymap.set({ "n", "v" }, "j", "a", { noremap = true, silent = true, desc = "Append Text" })
-vim.keymap.set({ "n", "v" }, "k", "s", { noremap = true, silent = true, desc = "Substitute Character" })
-vim.keymap.set({ "n", "v" }, "l", "d", { noremap = true, silent = true, desc = "Delete Operator" })
-vim.keymap.set({ "n", "v" }, "ll", "dd", { noremap = true, silent = true, desc = "Delete Current Line" })
-
--- Disable arrow keys
-local arrows = { "<Up>", "<Down>", "<Left>", "<Right>" }
-for _, key in ipairs(arrows) do
-  vim.keymap.set({ "n", "v", "o" }, key, "<Nop>", { noremap = true, silent = true })
-end
 
 -- Load custom plugin spec
 require("lazy").setup({

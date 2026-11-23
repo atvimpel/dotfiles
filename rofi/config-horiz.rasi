@@ -23,9 +23,9 @@ configuration {
 /* ── The floating panel ─────────────────────────────────── */
 window {
     background-color:       @surface-container;
-    border:                 2px;
+    border:                 1px;
     border-color:           @outline-variant;
-    border-radius:          15;
+    border-radius:          0;
     /* Narrower than Win11 so it feels less imposing */
     width:                  560px;
     location:               south;
@@ -51,10 +51,10 @@ mainbox {
 /* ── Search bar ─────────────────────────────────────────── */
 inputbar {
     background-color:       @surface-container-high;
-    border:                 2px;
+    border:                 1px;
     border-color:           @outline-variant;
     text-color:             @on-surface;
-    border-radius:          15;
+    border-radius:          0;
     padding:                5px 10px;
     margin:                 0;
     spacing:                8px;
@@ -84,7 +84,7 @@ listview {
     layout:                 vertical;
     background-color:       transparent;
     border:                 none;
-    border-radius:          15;
+    border-radius:          0;
     padding:                0;
     margin:                 0;
     spacing:                1px;
@@ -103,9 +103,9 @@ listview {
 element {
     background-color:       transparent;
     text-color:             @on-surface;
-    border:                 2px;
+    border:                 1px;
     border-color:           transparent;
-    border-radius:          15;
+    border-radius:          0;
     /* Was 8px 12px — tighter vertically, same horizontally */
     padding:                5px 10px;
     spacing:                10px;

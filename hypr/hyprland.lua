@@ -67,7 +67,7 @@ hl.config({
 	decoration = {
 		active_opacity = 1,
 		inactive_opacity = 1,
-		rounding = 15,
+		rounding = 0,
 		rounding_power = 2,
 
 		blur = {
@@ -104,9 +104,9 @@ hl.config({
 	},
 
 	general = {
-		border_size = 2,
+		border_size = 1,
 		gaps_in = 5,
-		gaps_out = 12,
+		gaps_out = 6,
 		resize_on_border = false,
 		col = {
 			active_border = colors.primary,
