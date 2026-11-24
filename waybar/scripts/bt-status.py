@@ -1,51 +1,49 @@
 #!/usr/bin/env python3
-import json
+import os
 import subprocess
 import sys
 
-def get_bluetooth_status():
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import waybar_tooltip as wt
+
+
+def connected_devices():
+    out = subprocess.check_output(
+        ["bluetoothctl", "devices", "Connected"], stderr=subprocess.DEVNULL, text=True
+    )
+    names = []
+    for line in out.splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        parts = line.split()
+        # Format: Device 00:11:22:33:44:55 Name
+        names.append(" ".join(parts[2:]) if len(parts) >= 3 else line)
+    return names
+
+
+def status():
     try:
-        # Get connected devices using blueutil if available, fallback to bluetoothctl
-        output = subprocess.check_output(["bluetoothctl", "devices", "Connected"], stderr=subprocess.DEVNULL, text=True)
-        lines = [l.strip() for l in output.splitlines() if l.strip()]
-        count = len(lines)
-        devices = []
-        for line in lines:
-            # Format: Device 00:11:22:33:44:55 Name
-            parts = line.split()
-            if len(parts) >= 3:
-                addr = parts[1]
-                name = " ".join(parts[2:])
-                devices.append(f"{name} ({addr})")
-        tooltip = "Connected devices:\n" + "\n".join(devices) if devices else "No Bluetooth devices connected"
-        text = "󰂲" if count > 0 else "󰂲"
-        alt = str(count)
-        cls = "connected" if count > 0 else "disconnected"
-        return text, alt, tooltip, cls
+        names = connected_devices()
     except Exception:
-        # Fallback: just check if bluetooth service is running
         try:
             subprocess.run(["systemctl", "is-active", "bluetooth"], check=True, capture_output=True)
-            text = "󰂲"
-            alt = "unknown"
-            tooltip = "Bluetooth service is running"
-            cls = "idle"
         except Exception:
-            text = "󰂲"
-            alt = "off"
-            tooltip = "Bluetooth is disabled"
-            cls = "disabled"
-        return text, alt, tooltip, cls
+            return "󰂲", "off", wt.card("Off", "Bluetooth", ["Turn it on to connect devices"]), "disabled"
+        return "󰂯", "unknown", wt.card("On", "Bluetooth", ["Couldn't read connected devices"]), "idle"
+
+    count = len(names)
+    if count == 0:
+        return "󰂯", "0", wt.card("0", "no devices connected", ["Bluetooth is on"]), "disconnected"
+    noun = "device" if count == 1 else "devices"
+    tip = wt.card(str(count), f"{noun} connected", names, color=wt.OK)
+    return "󰂱", str(count), tip, "connected"
+
 
 def main():
-    text, alt, tooltip, cls = get_bluetooth_status()
-    result = {
-        "text": text,
-        "alt": alt,
-        "tooltip": tooltip,
-        "class": cls
-    }
-    print(json.dumps(result))
+    text, alt, tip, cls = status()
+    wt.emit(text, cls, tip, alt=alt)
+
 
 if __name__ == "__main__":
     main()

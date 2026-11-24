@@ -397,7 +397,7 @@ scale slider {
 }
 
 .notification {
-    background: @surface_container;
+    background: @on_surface;
     padding: 10px 12px;
     margin: 0;
     border-radius: 0;
@@ -518,7 +518,7 @@ scale slider {
 /* ── Popup notifications ──────────────────────────────────── */
 
 .notification-popup {
-    background: @surface_container;
+    background: @on_primary;
     border-radius: 0;
     margin-top: 8px;
     padding: 12px 14px;

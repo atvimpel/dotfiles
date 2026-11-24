@@ -414,12 +414,10 @@ tooltip {
     box-shadow: 4px 4px 0 0 @surface_container_lowest;
     padding: 6px 10px;
     font-size: 11px;
-    font-weight: 700;
     color: @on_surface;
 }
 
 tooltip label {
-    color: @on_surface;
 }
 
 /* ── Menu ────────────────────────────────────────────────── */

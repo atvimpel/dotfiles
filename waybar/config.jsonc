@@ -25,13 +25,13 @@
       "tooltip": true,
       "format": "{text}",
       "rotate": 90,
-      "exec": "~/.config/hypr/scripts/workspace.sh",
+      "exec": "~/.config/waybar/scripts/workspace.sh",
       "escape": false,
       "return-type": "json",
-      "on-click": "bash ~/.config/hypr/scripts/workspace-overview.sh",
-      "on-click-right": "bash ~/.config/hypr/scripts/workspace-jump.sh",
-      "on-scroll-up": "bash ~/.config/hypr/scripts/workspace-scroll.sh e+1",
-      "on-scroll-down": "bash ~/.config/hypr/scripts/workspace-scroll.sh e-1"
+      "on-click": "bash ~/.config/waybar/scripts/workspace-overview.sh",
+      "on-click-right": "bash ~/.config/waybar/scripts/workspace-jump.sh",
+      "on-scroll-up": "bash ~/.config/waybar/scripts/workspace-scroll.sh e+1",
+      "on-scroll-down": "bash ~/.config/waybar/scripts/workspace-scroll.sh e-1"
     },
     "hyprland/submap": {
       "format": "{}",

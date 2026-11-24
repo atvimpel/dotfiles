@@ -18,7 +18,7 @@ configuration {
     font:                   "Zalando Sans 10";
 }
 
-/* ── The floating panel: tonal border, soft-toned hard shadow ─ */
+/* ── Floating panel: shared frame with config-horiz ─────── */
 window {
     background-color:       @surface-container;
     border:                 1px;
@@ -31,7 +31,7 @@ window {
     x-offset:               10px;
     shadow:                 true;
     shadow-radius:          0;
-    shadow-offset:          6px 6px;
+    shadow-offset:          4px 4px;
     shadow-color:           @surface-container-highest;
     children:               [ mainbox ];
 }
@@ -39,26 +39,26 @@ window {
 mainbox {
     orientation:            vertical;
     background-color:       transparent;
-    padding:                12px;
-    spacing:                12px;
-    children:               [ inputbar, message, listview ];
+    padding:                6px;
+    spacing:                6px;
+    children:               [ inputbar, listview, message ];
 }
 
-/* ── Search bar: boxed field, quiet border ──────────────── */
+/* ── Search bar: shared with config-horiz ───────────────── */
 inputbar {
-    background-color:       @surface;
+    background-color:       @surface-container-high;
     border:                 1px;
     border-color:           @outline-variant;
     text-color:             @on-surface;
     border-radius:          0;
-    padding:                10px 12px;
+    padding:                5px 10px;
     margin:                 0;
-    spacing:                10px;
+    spacing:                8px;
     children:               [ prompt, entry ];
 }
 
 prompt {
-    text-color:             @on-surface-variant;
+    text-color:             @primary;
     font:                   "Zalando Sans Bold 10";
     expand:                 false;
     vertical-align:         0.5;
@@ -67,21 +67,21 @@ prompt {
 entry {
     text-color:             @on-surface;
     font:                   "Zalando Sans SemiExpanded Bold 16";
-    placeholder:            "";
+    placeholder:            "Search apps...";
     placeholder-color:      @on-surface-variant;
-    cursor-color:           @on-surface-variant;
+    cursor-color:           @primary;
     vertical-align:         0.5;
 }
 
-/* ── App list (grows upward from the input) ─────────────── */
+/* ── App list: transparent so it sits on the panel ──────── */
 listview {
     layout:                 vertical;
-    background-color:       @surface-container;
-    border:                 @primary;
+    background-color:       transparent;
+    border:                 0;
     border-radius:          0;
     padding:                0;
     margin:                 0;
-    spacing:                2px;
+    spacing:                1px;
     cycle:                  true;
     dynamic:                true;
     scrollbar:              true;
@@ -89,7 +89,6 @@ listview {
     columns:                1;
 }
 
-/* ── Scrollbar: thin, tonal ─────────────────────────────── */
 scrollbar {
     width:                  3px;
     handle-width:           3px;
@@ -101,15 +100,15 @@ scrollbar {
     margin:                 0 0 0 8px;
 }
 
-/* ── App rows: dimmed until selected ────────────────────── */
+/* ── Rows: shared with config-horiz ─────────────────────── */
 element {
     background-color:       transparent;
     text-color:             @on-surface-variant;
     border:                 0 0 0 2px;
     border-color:           transparent;
     border-radius:          0;
-    padding:                6px 10px;
-    spacing:                12px;
+    padding:                5px 10px;
+    spacing:                10px;
     orientation:            horizontal;
 }
 
@@ -124,11 +123,11 @@ element-text {
     vertical-align:         0.5;
 }
 
-/* selection: tonal fill with a thin accent edge, no loud fill */
+/* selected: primary-container fill with a primary accent edge */
 element selected {
-    background-color:       @on-secondary;
-    text-color:             @secondary;
-    border-color:           @tertiary;
+    background-color:       @primary-container;
+    text-color:             @on-primary-container;
+    border-color:           @primary;
     font:                   "Zalando Sans Bold 10";
 }
 
@@ -141,7 +140,7 @@ element normal active {
 }
 
 element selected active {
-    text-color:             @primary;
+    text-color:             @on-primary-container;
 }
 
 element urgent element-text {

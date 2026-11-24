@@ -1,6 +1,9 @@
 #!/bin/bash
 # Clock module: time (with faint seconds) + compact date on bar
-# Tooltip: full date, ISO week, uptime, boot time
+# Tooltip: big time, weekday and date, then week, uptime and boot in the footer
+
+DIR="$(cd "$(dirname "$0")" && pwd)"
+. "$DIR/waybar_tooltip.sh"
 
 uptime_human() {
   local s=$1
@@ -20,14 +23,14 @@ emit() {
   UPTIME=$(uptime_human "$(awk '{printf "%d", $1}' /proc/uptime)")
   BOOT=$(uptime -s | cut -d' ' -f2 | cut -d: -f1,2)
 
-  TOOLTIP="<span size='large' weight='bold'>$(date '+%A')</span>\n"
-  TOOLTIP+="<span alpha='75%'>$(date '+%B %d, %Y')</span>\n"
-  TOOLTIP+="\n"
-  TOOLTIP+="<span alpha='25%'>─────────────</span>\n"
-  TOOLTIP+="<span alpha='45%' size='small'>Week ${WEEK}   ·   Up ${UPTIME}   ·   Boot ${BOOT}</span>"
+  TIP=$(tt_join \
+    "$(tt_hero "$TIME")" \
+    "$(tt_sub "$(date '+%A')")" \
+    "$(tt_sub "$(date '+%B %d, %Y')")" \
+    "$(tt_footer "Week $WEEK" "Up $UPTIME" "Boot $BOOT")")
 
   printf '{"text":"󰥔  %s<span alpha='"'"'35%%'"'"'>:%s</span> · %s","tooltip":"%s"}\n' \
-    "$TIME" "$SEC" "$DATE" "$TOOLTIP"
+    "$TIME" "$SEC" "$DATE" "$TIP"
 }
 
 emit

@@ -164,8 +164,8 @@ bold_italic_font auto
 })();
 
 // ── 6. GTK: colors.css (overwrite appearance vars) ───────────
-(function gtkColors() {
-  const gtkFiles = [path.join(DOTFILES, 'gtk-3.0', 'colors.css'), path.join(DOTFILES, 'gtk-4.0', 'gtk.css')];
+  (function gtkColors() {
+  const gtkFiles = [path.join(DOTFILES, 'gtk-3.0', 'gtk.css'), path.join(DOTFILES, 'gtk-4.0', 'gtk.css')];
   for (const p of gtkFiles) {
     if (!fs.existsSync(p)) continue;
     let css = fs.readFileSync(p, 'utf8');

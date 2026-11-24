@@ -1,43 +1,41 @@
 #!/usr/bin/env python3
-import json
+import os
 import subprocess
 import sys
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import waybar_tooltip as wt
+
+
+def count_lines(cmd):
+    try:
+        res = subprocess.run(cmd, capture_output=True, text=True)
+        if res.returncode == 0 and res.stdout.strip():
+            return len(res.stdout.strip().splitlines())
+    except Exception:
+        pass
+    return 0
+
+
 def get_updates():
-    pacman_count = 0
-    aur_count = 0
-    
-    try:
-        # checkupdates uses pacman sync database without touching root db
-        res = subprocess.run(["checkupdates"], capture_output=True, text=True)
-        if res.returncode == 0 and res.stdout.strip():
-            pacman_count = len(res.stdout.strip().splitlines())
-    except Exception:
-        pass
+    # checkupdates uses the pacman sync database without touching the root db
+    pacman = count_lines(["checkupdates"])
+    # yay -Qu --aur lists upgradable AUR packages
+    aur = count_lines(["yay", "-Qu", "--aur"])
+    total = pacman + aur
 
-    try:
-        # yay -Qu for AUR/foreign package updates
-        res = subprocess.run(["yay", "-Qu", "--aur"], capture_output=True, text=True)
-        if res.returncode == 0 and res.stdout.strip():
-            aur_count = len(res.stdout.strip().splitlines())
-    except Exception:
-        pass
-
-    total = pacman_count + aur_count
-    tooltip = f"Pacman: {pacman_count}\nAUR: {aur_count}"
-    
     if total > 0:
+        noun = "update" if total == 1 else "updates"
         text = f"󰚰 {total}"
+        tip = wt.card(str(total), noun, [f"Official {pacman} · AUR {aur}"], color=wt.WARN)
+        cls = "update"
     else:
         text = "󰚰 0"  # always show the badge, even when clean
-        
-    out = {
-        "text": text,
-        "alt": str(total),
-        "tooltip": tooltip,
-        "class": "updates"
-    }
-    print(json.dumps(out))
+        tip = wt.card("0", "up to date", ["Nothing to install"], color=wt.OK)
+        cls = "updated"
+
+    wt.emit(text, cls, tip, alt=str(total))
+
 
 if __name__ == "__main__":
     get_updates()

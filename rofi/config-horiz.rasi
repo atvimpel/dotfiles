@@ -20,35 +20,33 @@ configuration {
     font:                   "Zalando Sans 10";
 }
 
-/* ── The floating panel ─────────────────────────────────── */
+/* ── Bottom-anchored panel: shared frame with config.rasi ── */
 window {
     background-color:       @surface-container;
     border:                 1px;
     border-color:           @outline-variant;
     border-radius:          0;
-    /* Narrower than Win11 so it feels less imposing */
     width:                  560px;
     location:               south;
     anchor:                 south;
-    /* Slightly higher so it clears your bar */
     y-offset:               -10px;
     shadow:                 true;
-    shadow-radius:           0;
-    shadow-offset:           4px 4px;
+    shadow-radius:          0;
+    shadow-offset:          4px 4px;
     shadow-color:           @surface-container-highest;
     children:               [ mainbox ];
 }
 
-/* ── Vertical stack: search on top, apps below ──────────── */
+/* ── Swapped stack: list rises above, search sits at the base ── */
 mainbox {
     orientation:            vertical;
     background-color:       transparent;
     padding:                6px;
     spacing:                6px;
-    children:               [ inputbar, listview ];
+    children:               [ listview, inputbar ];
 }
 
-/* ── Search bar ─────────────────────────────────────────── */
+/* ── Search bar: shared with config.rasi ────────────────── */
 inputbar {
     background-color:       @surface-container-high;
     border:                 1px;
@@ -73,17 +71,17 @@ prompt {
 entry {
     text-color:             @on-surface;
     font:                   "Zalando Sans SemiExpanded Bold 16";
-    /* Friendlier, lowercase, less formal */
     placeholder:            "Search apps...";
     placeholder-color:      @on-surface-variant;
+    cursor-color:           @primary;
     vertical-align:         0.5;
 }
 
-/* ── App list ───────────────────────────────────────────── */
+/* ── App list: transparent so it sits on the panel ──────── */
 listview {
     layout:                 vertical;
     background-color:       transparent;
-    border:                 none;
+    border:                 0;
     border-radius:          0;
     padding:                0;
     margin:                 0;
@@ -91,29 +89,34 @@ listview {
     cycle:                  true;
     dynamic:                true;
     scrollbar:              true;
-    scrollbar-width:        3px;
-    scrollbar-handle-color: @outline-variant;
-    scrollbar-track-color:  transparent;
-    /* More rows visible — beginners see more at a glance */
     lines:                  10;
     columns:                1;
 }
 
-/* ── App rows — compact but breathable ──────────────────── */
+scrollbar {
+    width:                  3px;
+    handle-width:           3px;
+    handle-color:           @outline-variant;
+    background-color:       transparent;
+    border:                 0;
+    border-radius:          0;
+    padding:                0;
+    margin:                 0 0 0 8px;
+}
+
+/* ── Rows: shared with config.rasi ──────────────────────── */
 element {
     background-color:       transparent;
-    text-color:             @on-surface;
-    border:                 1px;
+    text-color:             @on-surface-variant;
+    border:                 0 0 0 2px;
     border-color:           transparent;
     border-radius:          0;
-    /* Was 8px 12px — tighter vertically, same horizontally */
     padding:                5px 10px;
     spacing:                10px;
     orientation:            horizontal;
 }
 
 element-icon {
-    /* Was 28px — smaller so rows pack tighter */
     size:                   22px;
     vertical-align:         0.5;
 }
@@ -124,11 +127,12 @@ element-text {
     vertical-align:         0.5;
 }
 
-/* Hover / selected — softer accent, easier on the eyes */
+/* selected: primary-container fill with a primary accent edge */
 element selected {
     background-color:       @primary-container;
     text-color:             @on-primary-container;
-    border-color:           @primary-container;
+    border-color:           @primary;
+    font:                   "Zalando Sans Bold 10";
 }
 
 element selected element-text {
@@ -139,15 +143,14 @@ element normal active {
     text-color:             @primary;
 }
 
-element normal active element-text {
-    font:                   "Zalando Sans Bold 10";
+element selected active {
+    text-color:             @on-primary-container;
 }
 
 element urgent element-text {
-    font:                   "Zalando Sans 10";
+    font:                   "Zalando Sans Bold 10";
 }
 
 element selected urgent element-text {
-    font:                   "Zalando Sans 10";
+    font:                   "Zalando Sans Bold 10";
 }
-

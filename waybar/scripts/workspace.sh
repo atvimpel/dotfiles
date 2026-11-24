@@ -1,5 +1,8 @@
 #!/bin/bash
 
+DIR="$(cd "$(dirname "$0")" && pwd)"
+. "$DIR/waybar_tooltip.sh"
+
 # ── Single-instance guard ─────────────────────────────────
 LOCKFILE="/tmp/waybar-workspace.lock"
 
@@ -148,7 +151,7 @@ friendly_name() {
 print_workspace() {
   local all_clients ws_data ws_id ws_name title win_count total_count \
     special_open special_id special_count \
-    active_workspaces tooltip text cls
+    active_workspaces text cls
 
   all_clients=$(hyprctl clients -j 2>/dev/null)
   ws_data=$(hyprctl activeworkspace -j 2>/dev/null)
@@ -189,8 +192,8 @@ print_workspace() {
     cls="ws-$ws_id"
   fi
 
-  # ── Tooltip (headline / body / rule / stat strip) ───────
-  local ws classes names line c ws_lines=""
+  # ── Tooltip: big number, state colour, live dot, no rules ──
+  local ws classes names c lines=()
   for ws in $(seq 1 12); do
     classes=$(echo "$all_clients" | jq -r --arg id "$ws" '.[] | select(.workspace.id == ($id | tonumber)) | .class' | sort -u)
     [[ -z "$classes" ]] && continue
@@ -201,29 +204,35 @@ print_workspace() {
       names="$names$(friendly_name "$c")"
     done <<<"$classes"
     if [[ "$ws" == "$ws_id" ]]; then
-      line="<span weight='bold'>● ws $ws</span>  <span alpha='75%'>[$names]</span>"
+      lines+=("$(tt_dot "$TT_OK")$(tt_sub "ws $ws  [$names]")")
     else
-      line="<span alpha='60%'>○ ws $ws  [$names]</span>"
+      lines+=("<span alpha='60%'>$(tt_esc "ws $ws  [$names]")</span>")
     fi
-    ws_lines="$ws_lines$line\n"
   done
 
-  local headline="Workspace $ws_id/12"
-  [[ -n "$title" ]] && headline="$title"
-
-  tooltip="<span size='large' weight='bold'>$headline</span>\n"
-  tooltip="${tooltip}\n"
-  tooltip="${tooltip}<span font_family='Monaspace Krypton NF'>${ws_lines%\\n}</span>\n"
-
-  if [[ -n "$special_id" ]]; then
-    tooltip="${tooltip}\n<span alpha='25%'>─────────────</span>\n"
-    tooltip="${tooltip}<span alpha='70%'>󰜉 special · $special_count window(s)</span>\n"
+  local hero hero_color label
+  if $special_open && [[ -n "$special_id" ]]; then
+    hero="$special_count"
+    hero_color="$TT_WARN"
+    label="special window(s)"
+  else
+    hero="$ws_id"
+    hero_color=""
+    label="Workspace $ws_id/12"
   fi
 
-  tooltip="${tooltip}\n<span alpha='25%'>─────────────</span>\n"
-  tooltip="${tooltip}<span alpha='45%' size='small'>$win_count/$total_count windows here   ·   $active_workspaces active</span>"
+  local tip_lines=("$(tt_hero "$hero" "$hero_color")" "$(tt_sub "$label")")
+  [[ -n "$title" ]] && tip_lines+=("$(tt_sub "$title")")
+  tip_lines+=("${lines[@]}")
+  if [[ -n "$special_id" ]]; then
+    tip_lines+=("$(tt_footer "󰜉 special · $special_count window(s)")")
+  fi
+  tip_lines+=("$(tt_footer "$win_count/$total_count windows here" "$active_workspaces active")")
 
-  printf '{"text": "%s", "tooltip": "%s", "class": "%s"}\n' "$text" "$tooltip" "$cls"
+  local tooltip
+  tooltip=$(tt_join "${tip_lines[@]}")
+
+  tt_emit "$(tt_esc "$text")" "$cls" "$tooltip"
 }
 
 # ── Main ──────────────────────────────────────────────────

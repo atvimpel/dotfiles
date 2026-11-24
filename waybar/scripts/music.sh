@@ -1,8 +1,11 @@
 #!/bin/bash
 
+DIR="$(cd "$(dirname "$0")" && pwd)"
+. "$DIR/waybar_tooltip.sh"
+
 STATUS=$(playerctl status 2>/dev/null)
 if [ -z "$STATUS" ] || [ "$STATUS" = "No players found" ]; then
-  echo '{"text": "", "tooltip": "", "class": "stopped"}'
+  tt_emit "" "stopped" "$(tt_join "$(tt_hero "—")" "$(tt_sub "Nothing playing")")"
   exit 0
 fi
 
@@ -14,14 +17,11 @@ LENGTH=$(playerctl metadata mpris:length 2>/dev/null)
 
 LENGTH_S=$(echo "$LENGTH / 1000000" | bc -l 2>/dev/null)
 
-BAR=""
+BAR=$(tt_bar 0)
 if [ -n "$POSITION" ] && [ -n "$LENGTH_S" ] && [ "$(echo "$LENGTH_S > 0" | bc -l)" = "1" ]; then
   FRACTION=$(echo "$POSITION / $LENGTH_S" | bc -l)
-  BAR_WIDTH=30
-  FILLED=$(echo "($FRACTION * $BAR_WIDTH) / 1" | bc)
-  EMPTY=$(($BAR_WIDTH - FILLED))
-  for i in $(seq 1 $FILLED); do BAR="${BAR}━"; done
-  for i in $(seq 1 $EMPTY); do BAR="${BAR}╌"; done
+  FILLED=$(echo "($FRACTION * $TT_BAR_CELLS) / 1" | bc)
+  BAR=$(tt_bar "$FILLED")
 fi
 
 fmt_time() {
@@ -48,14 +48,24 @@ else
   fi
 fi
 
-pango_escape() { printf '%s' "$1" | sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g'; }
-json_escape() { printf '%s' "$1" | python3 -c "import sys,json; print(json.dumps(sys.stdin.read())[1:-1])"; }
+TEXT="<span font_family='Zalando Sans'>$(tt_esc "$SCROLL_TITLE")</span>"
 
-TITLE_J=$(json_escape "$(pango_escape "$TITLE")")
-ARTIST_J=$(json_escape "$(pango_escape "$ARTIST")")
-ALBUM_J=$(json_escape "$(pango_escape "$ALBUM")")
-TEXT_J=$(json_escape "<span font_family=\"Monaspace Krypton\">$(pango_escape "$SCROLL_TITLE")</span>")
+TITLE_LINE="$(tt_sub "${TITLE:-Unknown track}")"
+if [ "$STATUS" = "Playing" ]; then
+  TITLE_LINE="$(tt_dot "$TT_OK")$TITLE_LINE"
+fi
 
-TOOLTIP="<b>${TITLE_J}</b>\\n${ARTIST_J}\\n${ALBUM_J}\\n\\n<span font_family=\\\"Monaspace Krypton\\\" font_features=\\\"tnum\\\">${POS_FMT} ${BAR} ${LEN_FMT}</span>"
+if [ -n "$ALBUM" ]; then
+  ARTIST_LINE="$(tt_sub "${ARTIST:-Unknown artist} · $ALBUM")"
+else
+  ARTIST_LINE="$(tt_sub "${ARTIST:-Unknown artist}")"
+fi
 
-echo "{\"text\": \"${TEXT_J}\", \"tooltip\": \"${TOOLTIP}\", \"class\": \"${STATUS}\"}"
+TIP=$(tt_join \
+  "$(tt_hero "$POS_FMT")" \
+  "$(tt_sub "of $LEN_FMT")" \
+  "$TITLE_LINE" \
+  "$ARTIST_LINE" \
+  "$BAR")
+
+tt_emit "$TEXT" "$STATUS" "$TIP"
